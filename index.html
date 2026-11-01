@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LORGOSS Organization</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:#080808;
+  color:white;
+  font-family:Arial,sans-serif;
+}
+
+header{
+  text-align:center;
+  padding:45px 15px;
+  background:linear-gradient(140deg,#333,#080808);
+  border-bottom:2px solid #777;
+}
+
+header h1{
+  font-size:44px;
+  letter-spacing:9px;
+  color:#eee;
+  text-shadow:0 0 15px #888;
+}
+
+header p{
+  color:#aaa;
+  font-size:11px;
+  letter-spacing:4px;
+  margin-top:12px;
+}
+
+.container{
+  max-width:1050px;
+  margin:auto;
+  padding:25px 15px;
+}
+
+.section-title{
+  text-align:center;
+  margin:38px 0 22px;
+  letter-spacing:3px;
+  font-size:20px;
+  color:#ddd;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+  gap:16px;
+}
+
+.card{
+  background:linear-gradient(145deg,#292929,#101010);
+  border:1px solid #555;
+  border-radius:15px;
+  padding:20px 10px;
+  text-align:center;
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  border-color:#eee;
+  box-shadow:0 5px 20px #4445;
+}
+
+.emblem{
+  width:100px;
+  height:110px;
+  margin:0 auto 12px;
+}
+
+.emblem svg{
+  width:100%;
+  height:100%;
+}
+
+.card h3{
+  font-size:17px;
+  margin-bottom:8px;
+}
+
+.card p{
+  font-size:11px;
+  letter-spacing:1.5px;
+  color:#aaa;
+}
+
+.leader{
+  border-color:#aaa;
+  background:linear-gradient(145deg,#3a3a3a,#111);
+}
+
+.special{
+  border-color:#777;
+}
+
+footer{
+  text-align:center;
+  padding:30px 10px;
+  margin-top:40px;
+  border-top:1px solid #444;
+  color:#888;
+  font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>LORGOSS</h1>
+  <p>ONE ORGANIZATION • ONE SOLIDARITY</p>
+</header>
+
+<main class="container">
+
+<h2 class="section-title">PIMPINAN ORGANISASI</h2>
+<div class="cards" id="leaders"></div>
+
+<h2 class="section-title">DAFTAR ANGGOTA</h2>
+<div class="cards" id="members"></div>
+
+<h2 class="section-title">TIM KHUSUS</h2>
+<div class="cards" id="special"></div>
+
+</main>
+
+<footer>
+  © 2026 LORGOSS ORGANIZATION
+  <br><br>
+  BUILT WITH SOLIDARITY
+</footer>
+
+<script>
+const people = {
+leaders:[
+["Andika","KETUA","crown"],
+["Fais","WAKIL KETUA","shield"]
+],
+
+members:[
+["Rifka","ANGGOTA","eagle"],
+["Baim","ANGGOTA","wolf"],
+["Sahrul","ANGGOTA","lion"],
+["Zulfikar","ANGGOTA","dragon"],
+["Hilal","ANGGOTA","hawk"],
+["Jumardi","ANGGOTA","tiger"],
+["Ikki","ANGGOTA","snake"],
+["Ocing","ANGGOTA","ghost"]
+],
+
+special:[
+["Fatir","ADMIN","gear"],
+["Alif","BACKSTAGE","shadow"],
+["Asrar","WEB DEVELOPER","computer"]
+]
+};
+
+const silver = `
+<defs>
+ <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0%" stop-color="#fff"/>
+  <stop offset="45%" stop-color="#888"/>
+  <stop offset="100%" stop-color="#ddd"/>
+ </linearGradient>
+</defs>`;
+
+function shape(type){
+const shapes={
+
+crown:`
+<path d="M15 32 L8 12 L30 27 L50 5 L70 27 L92 12 L85 32 L80 70 L20 70 Z"/>
+<path d="M20 80 H80 M27 45 L50 58 L73 45" fill="none" stroke="#222" stroke-width="4"/>`,
+
+shield:`
+<path d="M50 5 L90 20 L85 57 Q75 85 50 100 Q25 85 15 57 L10 20 Z"/>
+<path d="M30 49 L44 64 L72 34" fill="none" stroke="#222" stroke-width="6"/>`,
+
+eagle:`
+<path d="M50 12 L42 32 L10 18 L27 48 L8 68 L42 62 L50 90 L58 62 L92 68 L73 48 L90 18 L58 32 Z"/>
+<path d="M50 30 L38 50 L50 44 L62 50 Z" fill="#222"/>`,
+
+wolf:`
+<path d="M20 18 L40 30 L50 18 L60 30 L80 18 L76 65 L50 90 L24 65 Z"/>
+<path d="M32 49 L43 55 L50 48 L57 55 L68 49" fill="none" stroke="#222" stroke-width="5"/>`,
+
+lion:`
+<path d="M50 5 L62 18 L82 12 L82 34 L95 50 L82 68 L80 88 L50 95 L20 88 L18 68 L5 50 L18 34 L18 12 L38 18 Z"/>
+<path d="M35 43 L44 48 L50 43 L56 48 L65 43 M40 65 Q50 75 60 65" fill="none" stroke="#222" stroke-width="5"/>`,
+
+dragon:`
+<path d="M50 5 L67 24 L90 20 L75 43 L92 65 L63 62 L50 92 L37 62 L8 65 L25 43 L10 20 L33 24 Z"/>
+<path d="M35 42 L45 50 L50 42 L55 50 L65 42" fill="none" stroke="#222" stroke-width="4"/>`,
+
+hawk:`
+<path d="M50 8 L62 32 L90 15 L75 48 L88 73 L55 62 L50 92 L45 62 L12 73 L25 48 L10 15 L38 32 Z"/>
+<path d="M32 43 L50 53 L68 43" fill="none" stroke="#222" stroke-width="5"/>`,
+
+tiger:`
+<path d="M18 15 L37 25 L50 12 L63 25 L82 15 L87 58 L50 93 L13 58 Z"/>
+<path d="M30 35 L43 48 L50 35 L57 48 L70 35 M35 63 L50 53 L65 63" fill="none" stroke="#222" stroke-width="5"/>`,
+
+snake:`
+<path d="M50 8 Q90 25 65 45 Q35 60 55 78 Q70 90 85 72" fill="none" stroke="url(#silver)" stroke-width="13" stroke-linecap="round"/>
+<path d="M50 8 Q10 25 35 45 Q65 60 45 78 Q30 90 15 72" fill="none" stroke="url(#silver)" stroke-width="9" stroke-linecap="round"/>`,
+
+ghost:`
+<path d="M20 85 V40 Q20 10 50 10 Q80 10 80 40 V85 L65 75 L50 85 L35 75 Z"/>
+<circle cx="39" cy="42" r="5" fill="#222"/>
+<circle cx="61" cy="42" r="5" fill="#222"/>`,
+
+gear:`
+<path d="M42 5 H58 L63 17 L76 13 L87 25 L81 38 L94 45 V60 L81 67 L87 80 L76 91 L63 85 L58 97 H42 L37 85 L24 91 L13 80 L19 67 L6 60 V45 L19 38 L13 25 L24 13 L37 17 Z"/>
+<circle cx="50" cy="52" r="17" fill="#222"/>
+<circle cx="50" cy="52" r="9"/>`,
+
+shadow:`
+<path d="M50 7 Q87 20 80 62 Q75 90 50 95 Q25 90 20 62 Q13 20 50 7 Z"/>
+<path d="M35 45 Q50 25 65 45 Q50 68 35 45 Z" fill="#222"/>
+<circle cx="50" cy="45" r="6"/>`,
+
+computer:`
+<rect x="10" y="15" width="80" height="55" rx="5"/>
+<path d="M38 82 H62 M50 70 V82" fill="none" stroke="url(#silver)" stroke-width="6"/>
+<path d="M35 32 L25 43 L35 54 M65 32 L75 43 L65 54 M58 30 L44 57" fill="none" stroke="#222" stroke-width="4"/>`
+};
+
+return shapes[type] || shapes.eagle;
+}
+
+function makeCard(person,index){
+const [name,role,type]=person;
+return `
+<div class="card ${role.includes('KETUA') ? 'leader':''} ${role==='ANGGOTA'?'':'special'}">
+ <div class="emblem">
+  <svg viewBox="0 0 100 105" xmlns="http://www.w3.org/2000/svg">
+   ${silver}
+   <g fill="url(#silver)" stroke="#fff" stroke-width="1">
+    ${shape(type)}
+   </g>
+  </svg>
+ </div>
+ <h3>${name}</h3>
+ <p>${role}</p>
+</div>`;
+}
+
+document.getElementById("leaders").innerHTML=
+people.leaders.map(makeCard).join("");
+
+document.getElementById("members").innerHTML=
+people.members.map(makeCard).join("");
+
+document.getElementById("special").innerHTML=
+people.special.map(makeCard).join("");
+</script>
+
+</body>
+</html>
